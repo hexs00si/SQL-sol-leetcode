@@ -1,0 +1,6 @@
+select s.user_id, CASE
+when c.time_stamp is null then 0.00
+else ROUND(SUM(action = 'confirmed')/count(*),2)
+END as confirmation_rate 
+from signups s left join confirmations c on s.user_id = c.user_id
+group by s.user_id;
